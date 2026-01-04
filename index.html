@@ -2,230 +2,204 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>U&H Fitness | Elevate Your Strength</title>
-
-
-
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Baloo+2:wght@600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<!-- PREMIUM NAVBAR -->
+<div class="floating-cart" id="openCart">
+    🛒 <span id="cartCount">0</span>
+</div>
+
 <nav class="navbar">
     <div class="logo">U&H Fitness</div>
-
     <ul class="nav-links" id="navLinks">
         <li><a href="#">Home</a></li>
-        <li><a href="#">Programs</a></li>
-        <li><a href="#">Trainers</a></li>
-        <li><a href="#">Membership</a></li>
-        <li><a href="#">Contact</a></li>
+        <li><a href="#products">Shop</a></li>
+        <li><a href="#signup">Join</a></li>
+        <li><a href="#footer">Contact</a></li>
     </ul>
-
     <div class="hamburger" id="hamburger">
-        <span></span>
-        <span></span>
-        <span></span>
+        <span></span><span></span><span></span>
     </div>
 </nav>
 
+<div style="text-align: right; padding: 10px 5%;">
+    <button id="themeToggle" style="padding: 10px 15px; border-radius: 50px; cursor: pointer; background: #ffcc33; border: none; font-weight: bold;">🌓 Toggle Theme</button>
+</div>
 
-<!-- HERO SECTION (IMAGE NAVBAR KE NICHE) -->
 <section class="hero">
     <div class="hero-image">
         <img src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f" alt="Gym">
     </div>
-
     <div class="hero-content">
         <h1>Train Hard.<br><span>Live Strong.</span></h1>
-        <p>
-            U&H Fitness is a premium gym experience built for champions.
-            Elite equipment, certified trainers, and a luxury environment
-            designed to push your limits.
-        </p>
-
-        <!-- STATS -->
+        <p>U&H Fitness is a premium gym experience with elite equipment and certified trainers.</p>
         <div class="stats">
-            <div class="stat">
-                <h2 class="counter" data-target="250">1200+</h2>
-                <span>Happy Members</span>
-            </div>
-            <div class="stat">
-                <h2 class="counter" data-target="3">7+</h2>
-                <span>Branches</span>
-            </div>
-            <div class="stat">
-                <h2 class="counter" data-target="15">35+</h2>
-                <span>Expert Trainers</span>
-            </div>
+            <div class="stat"><h2 class="counter" data-target="1200">0</h2><span>Happy Members</span></div>
+            <div class="stat"><h2 class="counter" data-target="7">0</h2><span>Branches</span></div>
+            <div class="stat"><h2 class="counter" data-target="35">0</h2><span>Expert Trainers</span></div>
         </div>
+    </div>
+    <!-- BMI Calculator -->
+     
+</section><section class="bmi-section reveal" style="background: #1a1a1a; padding: 50px 5%; text-align: center; border-radius: 20px; margin: 20px 5%;">
+    <h2 style="color: #ffcc33; margin-bottom: 20px;">Calculate Your BMI ⚖️</h2>
+    <div style="max-width: 400px; margin: 0 auto; display: flex; flex-direction: column; gap: 15px;">
+        <input type="number" id="weight" placeholder="Weight (kg)" style="padding: 12px; border-radius: 10px; border: none;">
+        <input type="number" id="height" placeholder="Height (cm)" style="padding: 12px; border-radius: 10px; border: none;">
+        <button id="calcBMI" style="background: #ffcc33; color: #000; font-weight: bold; padding: 12px; border-radius: 10px; border: none; cursor: pointer;">Calculate Now</button>
+        <h3 id="bmiResult" style="color: #fff; margin-top: 10px;"></h3>
     </div>
 </section>
 
-<!-- PRODUCTS SECTION -->
-<section class="products">
 
-    <h2 class="section-title">Our Products</h2>
-    <p class="section-sub">Premium quality supplements & gym gear</p>
 
-    <!-- SUPPLEMENTS -->
-    <h3 class="product-category">Supplements</h3>
+<section class="schedule-section reveal" style="padding: 50px 5%; text-align: center;">
+    <h2 style="color: #ffcc33;">Weekly Class Schedule 📅</h2>
+    <div style="overflow-x: auto; margin-top: 20px;">
+        <table style="width: 100%; border-collapse: collapse; color: white; background: #1a1a1a;">
+            <thead>
+                <tr style="background: #ffcc33; color: #000;">
+                    <th style="padding: 15px;">Time</th>
+                    <th>Monday</th>
+                    <th>Wednesday</th>
+                    <th>Friday</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr style="border-bottom: 1px solid #333;">
+                    <td style="padding: 15px;">08:00 AM</td>
+                    <td>Yoga</td>
+                    <td>Cardio</td>
+                    <td>Pilates</td>
+                </tr>
+                <tr>
+                    <td style="padding: 15px;">06:00 PM</td>
+                    <td>Boxing</td>
+                    <td>HIIT</td>
+                    <td>Zumba</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<div class="filter-container" style="text-align:center; margin: 40px 0;">
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="supplement">Supplements</button>
+    <button class="filter-btn" data-filter="accessory">Accessories</button>
+</div>
+
+<section id="products" class="products">
     <div class="product-grid">
-
-        <div class="product-card">
-            <img src="Assets/OIP.jfif" alt="Whey Protein">
+        <div class="product-card supplement reveal">
+            <img src="Assets/OIP.jfif">
             <h4>Whey Protein</h4>
-            <p>High quality protein for muscle growth & recovery.</p>
-            <button>Buy Now</button>
+            <p>High quality protein for growth.</p>
+            <button class="buy-btn" data-name="Whey Protein" data-price="8500" data-desc="Muscle growth & recovery." data-img="Assets/OIP.jfif">Buy Now</button>
         </div>
-
-        <div class="product-card">
-            <img src="Assets/Creatine.jfif" alt="Creatine">
+        <div class="product-card supplement reveal">
+            <img src="Assets/Creatine.jfif">
             <h4>Creatine</h4>
-            <p>Boost strength, power and workout performance.</p>
-            <button>Buy Now</button>
+            <p>Boost strength and power.</p>
+            <button class="buy-btn" data-name="Creatine" data-price="4500" data-desc="Boost power and performance." data-img="Assets/Creatine.jfif">Buy Now</button>
+        </div>
+        <div class="product-card supplement reveal">
+            <img src="https://images.unsplash.com/photo-1593095948071-474c5cc2989d?auto=format&fit=crop&q=80&w=400" alt="Pre-Workout">
+            <h4>Pre-Workout Burst</h4>
+            <p>Extreme energy for your sessions.</p>
+            <button class="buy-btn" data-name="Pre-Workout Burst" data-price="5200" data-desc="High caffeine energy formula." data-img="https://images.unsplash.com/photo-1593095948071-474c5cc2989d?auto=format&fit=crop&q=80&w=400">Buy Now</button>
         </div>
 
-        <div class="product-card">
-            <img src="Assets/BCAA.jfif" alt="BCAA">
-            <h4>BCAA</h4>
-            <p>Supports endurance and reduces muscle fatigue.</p>
-            <button>Buy Now</button>
-        </div>
-
-    </div>
-    <div class="product-grid">
-
-        <div class="product-card">
-            <img src="Assets/Fish oil.jfif" alt="Whey Protein">
-            <h4>Omega 3/ Fish oil</h4>
-            <p>Supports heart health and reduces joint inflammation after heavy lifting.</p>
-            <button>Buy Now</button>
-        </div>
-
-        <div class="product-card">
-            <img src="Assets/pre workout.jfif" alt="Creatine">
-            <h4>Pre workout</h4>
-            <p>Explosive energy and sharp focus to crush your most intense gym sessions.</p>
-            <button>Buy Now</button>
-        </div>
-
-        <div class="product-card">
-            <img src="Assets/mass gainer.jfif" alt="BCAA">
-            <h4>Mass Gainer</h4>
-            <p>High-calorie formula designed for rapid muscle mass and size gains.</p>
-            <button>Buy Now</button>
-        </div>
-
-    </div>
-
-    <!-- GYM ACCESSORIES -->
-    <h3 class="product-category">Gym Accessories</h3>
-    <div class="product-grid">
-
-        <div class="product-card">
-            <img src="Assets/Gym gloves.jfif" alt="Gym Gloves">
+        <div class="product-card accessory reveal">
+            <img src="Assets/Gym gloves.jfif">
             <h4>Gym Gloves</h4>
-            <p>Maximum grip & wrist support during heavy lifts.</p>
-            <button>Buy Now</button>
+            <p>Grip & wrist support.</p>
+            <button class="buy-btn" data-name="Gym Gloves" data-price="1500" data-desc="Maximum grip support." data-img="Assets/Gym gloves.jfif">Buy Now</button>
         </div>
-
-        <div class="product-card">
-            <img src="Assets/Gym shirts.jfif" alt="Gym Shirt">
-            <h4>Training Shirt</h4>
-            <p>Breathable fabric designed for intense workouts.</p>
-            <button>Buy Now</button>
+        <div class="product-card accessory reveal">
+            <img src="https://tse2.mm.bing.net/th/id/OIP.d9-PNXRkUkTBoPaMJezDTQHaEO?pid=Api&P=0&h=220" alt="Yoga Mat">
+            <h4>Premium Yoga Mat</h4>
+            <p>Anti-slip extra cushioning.</p>
+            <button class="buy-btn" data-name="Premium Yoga Mat" data-price="3500" data-desc="Durable and easy to clean." data-img="https://images.unsplash.com/photo-1583454110551-21f2fa2adfcd?auto=format&fit=crop&q=80&w=400">Buy Now</button>
         </div>
-
-        <div class="product-card">
-            <img src="Assets/gym tank top.jfif" alt="Water Bottle">
-            <h4>Tank Top</h4>
-            <p>Gym shark Official Tank top</p>
-            <button>Buy Now</button>
+        <div class="product-card accessory reveal">
+            <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&q=80&w=400" alt="Resistance Bands">
+            <h4>Resistance Bands</h4>
+            <p>Set of 5 for full body work.</p>
+            <button class="buy-btn" data-name="Resistance Bands" data-price="2800" data-desc="Varying tension levels." data-img="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&q=80&w=400">Buy Now</button>
         </div>
-
     </div>
-    <div class="product-grid">
-
-        <div class="product-card">
-            <img src="Assets/fitness bottle.jfif" alt="Water Bottle">
-            <h4>Fitness Bottle</h4>
-            <p>Stay hydrated with our premium gym bottle.</p>
-            <button>Buy Now</button>
-        </div>
-
-        <div class="product-card">
-            <img src="Assets/tee fit.jfif" alt="Creatine">
-            <h4>compression</h4>
-            <p>Tee fit Fashion Pakistan Official Gym compression T</p>
-            <button>Buy Now</button>
-        </div>
-
-        <div class="product-card">
-            <img src="Assets/kettle bell.jfif" alt="BCAA">
-            <h4>Kettle Bell</h4>
-            <p>2kg - 10kg kettlebell . better for cardio and balanced workout</p>
-            <button>Buy Now</button>
-        </div>
-
-    </div>
-
 </section>
 
-
-<!-- SIGNUP SECTION -->
-<section class="signup">
+<section class="signup" id="signup">
     <h2>Join U&H Fitness</h2>
-    <p>Become part of a premium fitness community</p>
-
     <form id="signupForm">
-        <input type="text" id="name" placeholder="Full Name">
-        <input type="email" id="email" placeholder="Email Address">
-        <input type="number" id="age" placeholder="Age">
+        <input type="text" id="name" placeholder="Full Name" required>
+        <input type="email" id="email" placeholder="Email" required>
+        <input type="number" id="age" placeholder="Age" required>
         <button type="submit">Join Now</button>
         <span id="formMsg"></span>
     </form>
 </section>
 
-<!-- FOOTER -->
-<footer class="footer">
-    <div class="footer-wrap">
+<div class="product-modal" id="productModal" style="display:none;">
+    <div class="modal-content">
+        <span class="close-btn" id="closeModal">&times;</span>
+        <img id="modalImg" src="">
+        <h3 id="modalTitle"></h3>
+        <p id="modalDesc"></p>
+        <button id="addToCartBtn">Add to Cart</button>
+    </div>
+</div>
 
+<div class="product-modal" id="cartModal" style="display:none;">
+    <div class="modal-content">
+        <span class="close-btn" id="closeCart">&times;</span>
+        <h3 style="color:#ffcc33;">Your Gym Cart 🛒</h3>
+        <ul id="cartItemList"></ul>
+        <hr style="border:0.5px solid #333; margin: 15px 0;">
+        <div style="margin: 15px 0;">
+            <input type="text" id="promoCode" placeholder="Enter Promo Code" style="padding: 8px; border-radius: 5px; border: 1px solid #333; width: 60%;">
+            <button id="applyPromo" style="padding: 8px; background: #444; color: #fff; border: none; border-radius: 5px; cursor: pointer;">Apply</button>
+        </div>
+        <h4>Total: <span id="cartTotalText">0</span> PKR</h4>
+        <button id="checkoutBtn" style="background:#ffcc33; padding:10px; border-radius:20px; border:none; cursor:pointer; width:100%; font-weight:bold;">Checkout Now</button>
+    </div>
+</div>
+
+<footer class="footer" id="footer">
+    <div class="footer-wrap" style="display: flex; justify-content: space-around; padding: 40px 5%;">
         <div class="footer-col">
             <h3>U&H Fitness</h3>
-            <p>Premium gym experience with modern equipment and certified trainers.</p>
+            <p>Premium gym experience with elite equipment.</p>
         </div>
-
-        <div class="footer-col">
-            <h4>Quick Links</h4>
-            <ul>
-                <li>Home</li>
-                <li>Programs</li>
-                <li>Trainers</li>
-                <li>Membership</li>
-            </ul>
-        </div>
-
         <div class="footer-col">
             <h4>Contact</h4>
             <p>Email: info@uhfitness.com</p>
             <p>Phone: +92 300 1234567</p>
         </div>
-
     </div>
-    <div class="footer-credit">
-        <span>Created by</span>
-        <strong>Umar Saeed</strong> •
-        <strong>Huzaifa Shahbaz</strong> •
-        <strong>Muhammad Ahsan</strong>
+    <div class="footer-credit" style="border-top: 1px solid #333; padding: 20px; text-align: center;">
+        Created by <span class="golden-name">Umar Saeed</span> • 
+        <span class="golden-name">Huzaifa Shahbaz</span> • 
+        <span class="golden-name">Muhammad Huzaifa</span>
     </div>
-    
-    <div class="footer-bottom">
-        © 2025 U&H Fitness — All Rights Reserved
+    <div class="footer-bottom" style="text-align: center; padding-bottom: 20px;">
+        © 2025 U&H Fitness
     </div>
 </footer>
 
-<script src="script.js"></script>
+<script src="App.js"></script>
 </body>
+<div id="preloader">
+    <div class="loader-content">
+        <h1 class="loader-logo">U&H<span> Fitness</span></h1>
+        <div class="loader-bar"></div>
+        <p class="loader-text">ESTABLISHING STRENGTH...</p>
+    </div>
+</div>
 </html>

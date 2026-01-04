@@ -1,18 +1,27 @@
-/* --- Global Reset --- */
+/* --- 1. Global Reset & Variables --- */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+:root {
+    --gold: #ffcc33;
+    --gold-grad: linear-gradient(90deg, #ffb347, #ffcc33);
+    --dark: #0b0b0b;
+    --card-bg: #111;
+    --text-muted: #888;
+}
+
 body {
-    background: #0b0b0b;
+    background: var(--dark);
     font-family: 'Poppins', sans-serif;
     color: #fff;
     overflow-x: hidden;
+    transition: background 0.4s, color 0.4s;
 }
 
-
+/* --- 2. Navbar & Navigation --- */
 .navbar {
     width: 95%;
     margin: 20px auto;
@@ -24,42 +33,27 @@ body {
     backdrop-filter: blur(20px);
     border-radius: 18px;
     border: 1px solid rgba(255,255,255,0.1);
-    position: relative;
-    overflow: hidden; 
+    position: sticky; /* Fixed position for scrolling convenience */
+    top: 20px;
     z-index: 1000;
-}
-
-
-.navbar::before {
-    content: "";
-    position: absolute;
-    top: 0; left: -150%;
-    width: 100%; height: 100%;
-    background: linear-gradient(120deg, transparent, rgba(255,255,255,0.2), transparent);
-    animation: shine 6s infinite ease-in-out;
-}
-
-@keyframes shine {
-    0% { left: -150%; }
-    30% { left: 150%; }
-    100% { left: 150%; }
 }
 
 .logo {
     font-family: 'Baloo 2', cursive;
     font-size: 28px;
     font-weight: 700;
-    background: linear-gradient(90deg, #ffb347, #ffcc33);
+    background: var(--gold-grad);
+    -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
 }
-
 
 .nav-links {
     list-style: none;
     display: flex;
     gap: 35px;
-    margin-left: auto; 
+    margin-left: auto; /* Ye links ko right side par dhakail dega */
+    align-items: center;
 }
 
 .nav-links a { 
@@ -69,9 +63,9 @@ body {
     font-size: 15px;
     transition: 0.3s; 
 }
-.nav-links a:hover { color: #ffcc33; }
+.nav-links a:hover { color: var(--gold); }
 
-/* --- HERO SECTION --- */
+/* --- 3. Hero Section --- */
 .hero {
     display: flex;
     width: 90%;
@@ -89,41 +83,61 @@ body {
 
 .hero-content { width: 60%; }
 .hero-content h1 { font-size: 55px; line-height: 1.1; margin-bottom: 20px; }
-.hero-content span { color: #ffcc33; }
-.hero-content p { color: #888; margin-bottom: 35px; font-size: 17px; }
+.hero-content h1 span { color: var(--gold); }
+.hero-content p { color: var(--text-muted); margin-bottom: 35px; font-size: 17px; }
 
 .stats { display: flex; gap: 40px; }
-.stat h2 { color: #ffcc33; font-size: 38px; }
+.stat h2 { color: var(--gold); font-size: 38px; }
 
-/* --- PRODUCTS (Supplements & Gear) --- */
+/* --- 4. Products & Filtering --- */
 .products { padding: 60px 5%; text-align: center; }
 
 .product-category {
     font-family: 'Baloo 2', cursive;
-    font-size: 32px;
-    color: #ffcc33;
+    font-size: 36px;
+    color: var(--gold);
     margin: 60px 0 35px;
+}
+
+.filter-btn {
+    padding: 10px 22px;
+    margin: 5px;
+    background: #222;
+    color: #fff;
+    border: 1px solid var(--gold);
+    border-radius: 25px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.filter-btn.active, .filter-btn:hover {
+    background: var(--gold);
+    color: #000;
+    box-shadow: 0 0 15px rgba(255, 204, 51, 0.4);
 }
 
 .product-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* PC: 3 columns */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
     gap: 30px;
     max-width: 1200px;
-    margin: 0 auto 50px;
+    margin: 40px auto;
 }
 
 .product-card {
-    background: #111;
+    background: var(--card-bg);
     padding: 30px;
     border-radius: 22px;
     border: 1px solid #222;
-    transition: 0.4s;
+    transition: transform 0.4s, border-color 0.4s, opacity 0.4s;
     display: flex;
     flex-direction: column;
 }
 
-.product-card:hover { border-color: #ffcc33; transform: translateY(-8px); }
+.product-card:hover { 
+    border-color: var(--gold); 
+    transform: translateY(-8px); 
+}
 
 .product-card img {
     width: 100%;
@@ -135,201 +149,326 @@ body {
 .product-card h4 { font-size: 20px; margin-bottom: 12px; }
 .product-card p { font-size: 14px; color: #777; margin-bottom: 25px; flex-grow: 1; }
 
-.product-card button {
+.product-card button, .signup button, #addToCartBtn {
     padding: 14px;
-    background: linear-gradient(90deg, #ffb347, #ffcc33);
+    background: var(--gold-grad);
     border: none;
     border-radius: 12px;
     font-weight: 700;
     cursor: pointer;
+    transition: 0.3s;
 }
 
+/* --- 5. Cart & Modals --- */
+.floating-cart {
+    position: fixed;
+    right: 25px;
+    top: 120px;
+    background: rgba(255, 204, 51, 0.95);
+    color: #000;
+    padding: 12px 18px;
+    border-radius: 12px;
+    font-weight: bold;
+    z-index: 999;
+    cursor: pointer;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+}
 
+.product-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.9); 
+    backdrop-filter: blur(8px);
+    z-index: 3000;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: #151515;
+    padding: 40px;
+    border-radius: 25px;
+    width: 90%;
+    max-width: 500px;
+    text-align: center;
+    border: 1px solid var(--gold);
+    animation: modalPop 0.4s ease-out;
+}
+
+@keyframes modalPop {
+    from { transform: scale(0.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+/* --- 6. Reveal Animations --- */
+.hero, .product-card, .signup, .footer, .product-category, .stat {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.8s ease-out;
+}
+
+.active {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+}
+
+/* --- 7. Theme & Utilities --- */
+body.light-theme { background: #f4f4f4; color: #000; }
+body.light-theme .navbar { background: #fff !important; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+body.light-theme .product-card { background: #fff; border-color: #ddd; color: #000; }
+body.light-theme .product-category, body.light-theme .stat h2 { color: #000; }
+body.light-theme .footer { background: #eee; color: #000; }
+
+.golden-name { color: var(--gold); font-weight: bold; }
+
+/* --- 8. Responsive Design --- */
 @media (max-width: 768px) {
-    
-    .navbar {
-        
-        width: 100% !important; 
-        margin: 0 !important; 
-        border-radius: 0;
-        
-       
-        padding: 45px 25px; 
-        min-height: 110px; 
-        
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        
-        
-        overflow: hidden; 
-        background: linear-gradient(135deg, rgba(255,255,255,0.12), rgba(255,255,255,0.05));
-        backdrop-filter: blur(20px);
-        border-bottom: 1px solid rgba(255,255,255,0.1);
-    }
-
-   
-    .logo {
-        font-size: 26px;
-    }
-
-    .hamburger {
-        display: flex;
-        padding-right: 10px;
-    }
-    .hero { flex-direction: column; text-align: center; width: 100%; }
-    .hero-image { width: 100%; padding: 0; }
-    .hero-image img { border-radius: 0; max-height: 400px; }
-    .hero-content { width: 100%; padding: 25px; }
+    .navbar { padding: 20px; border-radius: 0; width: 100%; top: 0; }
+    .hero { flex-direction: column; text-align: center; gap: 30px; }
+    .hero-content, .hero-image { width: 100%; }
     .hero-content h1 { font-size: 38px; }
-
-    
-    .product-grid {
-        grid-template-columns: 1fr; 
-        width: 100%;
-        padding: 0 20px;
+    .product-grid { grid-template-columns: 1fr; }
+    .hamburger { display: flex; flex-direction: column; gap: 5px; cursor: pointer; }
+    .hamburger span { width: 25px; height: 3px; background: #fff; }
+    .nav-links {
+        display: none;
+        position: absolute; top: 100%; left: 0; width: 100%;
+        background: #111; padding: 20px; flex-direction: column;
     }
-
-    .product-card {
-        width: 100%;
-        max-width: 450px; 
-        margin: 0 auto 30px; 
-        padding: 45px 30px; 
-    }
-
-    .product-card img { height: 280px; } 
-    .product-category { font-size: 26px; }
-}
-/* SIGNUP */
+    .nav-links.active { display: flex; }
+}/* --- SIGNUP SECTION CENTERED --- */
 .signup {
     padding: 100px 20px;
     text-align: center;
     background: radial-gradient(circle, #151515, #000);
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Heading aur Form dono ko horizontal center karne ke liye */
+    justify-content: center;
 }
 
 .signup h2 {
-    font-size: 38px;
-}
-
-.signup p {
-    color: #aaa;
-    margin-bottom: 40px;
+    margin-bottom: 30px;
+    font-size: 36px;
 }
 
 .signup form {
-    max-width: 400px;
-    margin: auto;
+    width: 100%;
+    max-width: 900px; /* Width thori barha di taake inputs sukoon se ayen */
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap; /* Mobile par khud niche shift ho jayega */
     gap: 15px;
+    justify-content: center; /* Inputs ko form ke andar center karne ke liye */
+    align-items: center;
 }
 
 .signup input {
-    padding: 14px;
+    padding: 14px 20px;
     border-radius: 8px;
-    border: none;
+    border: 1px solid #333;
+    background: #1a1a1a;
+    color: #fff;
     outline: none;
+    flex: 1; /* Inputs ko barabar jagah dene ke liye */
+    min-width: 200px; /* Mobile par columns banane ke liye */
 }
 
 .signup button {
-    padding: 14px;
+    padding: 14px 35px;
     border-radius: 30px;
-    background: linear-gradient(90deg, #ffb347, #ffcc33);
+    background: var(--gold-grad);
     border: none;
-    font-weight: 600;
+    font-weight: 700;
     cursor: pointer;
+    white-space: nowrap; /* Button text wrap na ho */
+    transition: 0.3s;
 }
 
 #formMsg {
-    margin-top: 10px;
-    font-size: 14px;
-}
-
-/* FOOTER */
-.footer {
-    background: #000;
-    padding: 60px 20px 20px;
-    border-top: 1px solid rgba(255,255,255,0.1);
-}
-
-.footer-wrap {
-    max-width: 1100px;
-    margin: auto;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 40px;
-}
-
-.footer-col h3 {
-    font-family: 'Baloo 2', cursive;
-    color: #ffcc33;
-    font-size: 26px;
-    margin-bottom: 12px;
-}
-
-.footer-col h4 {
-    margin-bottom: 10px;
-    color: #fff;
-}
-
-.footer-col p,
-.footer-col li {
-    color: #aaa;
-    font-size: 14px;
-    line-height: 1.7;
-}
-
-.footer-col ul {
-    list-style: none;
-    padding: 0;
-}
-
-.footer-col li {
-    margin-bottom: 6px;
-}
-
-.footer-bottom {
-    text-align: center;
-    margin-top: 40px;
-    font-size: 13px;
-    color: #777;
-}
-.footer-credit {
-    margin-top: 35px;
-    text-align: center;
-    font-size: 14px;
-    color: #aaa;
-    letter-spacing: 0.5px;
-}
-
-.footer-credit strong {
-    color: #ffcc33;
+    width: 100%; /* Message poori line le taake center dikhe */
+    margin-top: 15px;
     font-weight: 500;
 }
-
-/* Responsive Footer */
-@media (max-width: 768px) {
-    .footer-wrap {
-        grid-template-columns: 1fr;
-        text-align: center;
-    }
-
-    .footer-credit {
-        font-size: 13px;
-        line-height: 1.8;
-    }
+/* --- Modals Fix: Screen se faltu boxes hatane ke liye --- */
+.product-modal, .cart-modal {
+    display: none; /* Default hide */
+    position: fixed; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 3000;
+    background: rgba(0,0,0,0.8);
+    /* Inhe flex tabhi karein jab JS se 'active' class mile */
 }
 
-/* HAMBURGER MENU */
-.hamburger {
-    display: none;
-    flex-direction: column;
-    cursor: pointer;
-    gap: 5px;
+/* Jab modal open ho toh hi display ho */
+.modal-active {
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
 }
-.hamburger div {
-    width: 25px;
+
+/* Filtering Buttons Container Styling */
+.filter-container {
+    margin-top: 40px; /* Hero section se thora niche */
+    margin-bottom: 20px; /* Products grid ke exact upar */
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+#comparisonSlider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 5px;
+    height: 400px;
+    background: transparent;
+}
+
+.comparison-container:hover {
+    box-shadow: 0 0 20px rgba(255, 204, 51, 0.4);
+    transition: 0.3s;
+}
+/* Preloader Styles */
+#preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: #000; /* Pitch Black */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999; /* Sabse upar */
+    transition: transform 0.8s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+.loader-content {
+    text-align: center;
+}
+
+.loader-logo {
+    color: #fff;
+    font-size: 3rem;
+    font-weight: 800;
+    letter-spacing: 5px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+
+.loader-logo span {
+    color: #ffcc33; /* Golden Yellow */
+}
+
+.loader-bar {
+    width: 0;
     height: 3px;
-    background-color: #fff;
-    border-radius: 2px;
+    background: #ffcc33;
+    margin: 0 auto;
+    animation: loadProgress 2s ease-in-out forwards;
+}
+
+.loader-text {
+    color: #555;
+    font-size: 10px;
+    letter-spacing: 3px;
+    margin-top: 15px;
+}
+
+/* Animation for the bar */
+@keyframes loadProgress {
+    0% { width: 0; }
+    100% { width: 100%; }
+}
+
+/* Exit Animation class */
+.preloader-hidden {
+    transform: translateY(-100%);
+}
+/* --- 8. Final Mobile Optimization Fix --- */
+@media (max-width: 768px) {
+    /* Main Containers mein padding add ki taake content edges se na chipke */
+    body {
+        width: 100%;
+        overflow-x: hidden; /* Horizontal scroll khatam */
+    }
+
+    .navbar { 
+        width: 92%; /* Side se thori jagah chori */
+        padding: 15px 20px; 
+        border-radius: 12px; 
+        top: 10px; 
+    }
+
+    .hero { 
+        flex-direction: column; 
+        text-align: center; 
+        gap: 20px; 
+        width: 90%; /* Content center mein rahega */
+        margin: 20px auto;
+    }
+
+    .hero-content h1 { 
+        font-size: 32px; /* Font size thora chota kiya mobile ke liye */
+    }
+
+    .stats {
+        justify-content: center;
+        flex-wrap: wrap; /* Stats niche shift ho jayenge agar jagah kam hui */
+        gap: 20px;
+    }
+
+    /* Product Grid fix */
+    .product-grid { 
+        grid-template-columns: 1fr; 
+        width: 90%; 
+        margin: 20px auto; 
+    }
+
+    /* Floating Cart ko thora andar kiya */
+    .floating-cart {
+        right: 15px;
+        top: 90px;
+        padding: 10px 15px;
+        font-size: 14px;
+    }
+
+    /* Buttons Margin Fix */
+    .filter-container {
+        flex-wrap: wrap;
+        padding: 0 15px;
+    }
+
+    .filter-btn {
+        margin: 5px;
+        font-size: 13px;
+    }
+
+    /* Signup Form Mobile Fix */
+    .signup form {
+        padding: 0 20px; /* Edges se margin */
+    }
+
+    .signup input {
+        width: 100%; /* Mobile par inputs full width honge */
+        margin-bottom: 10px;
+    }
+
+    .signup button {
+        width: 100%; /* Button bhi full width taake click karna asan ho */
+    }
+
+    /* BMI & Tools Section Fix */
+    .tools-grid {
+        grid-template-columns: 1fr !important;
+        padding: 40px 20px !important;
+    }
+
+    /* Modal Content Mobile Fix */
+    .modal-content {
+        width: 92%;
+        padding: 25px;
+    }
 }
