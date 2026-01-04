@@ -243,11 +243,43 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("closeModal").onclick = () => prodModal.style.display = "none";
     document.getElementById("closeCart").onclick = () => cartModal.style.display = "none";
 
-    const hamburger = document.getElementById("hamburger");
-    if (hamburger) {
-        hamburger.onclick = () => document.getElementById("navLinks").classList.toggle("active");
-    }
+
 
     document.body.style.overflow = "hidden";
     updateCartUI();
+
+    // --- Hamburger Menu Toggle ---
+    const hamburger = document.getElementById("hamburger");
+    const navLinks = document.getElementById("navLinks");
+
+    if (hamburger) {
+        hamburger.addEventListener("click", (e) => {
+            e.stopPropagation(); // Event bubble na ho
+            navLinks.classList.toggle("active");
+        });
+    }
+
+    // Menu ke bahar click karne se menu band ho jaye
+    document.addEventListener("click", (e) => {
+        if (navLinks.classList.contains("active") && !navLinks.contains(e.target) && e.target !== hamburger) {
+            navLinks.classList.remove("active");
+        }
+    });
+
+    // --- Cart & Modal Display Fix ---
+    const openCartBtn = document.getElementById("openCart");
+    if (openCartBtn) {
+        openCartBtn.onclick = () => {
+            cartModal.style.display = "flex";
+            document.body.style.overflow = "hidden"; // Scroll band
+        };
+    }
+
+    const closeCartBtn = document.getElementById("closeCart");
+    if (closeCartBtn) {
+        closeCartBtn.onclick = () => {
+            cartModal.style.display = "none";
+            document.body.style.overflow = "auto"; // Scroll wapis
+        };
+    }
 });
